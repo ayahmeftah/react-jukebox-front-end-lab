@@ -9,7 +9,8 @@ import DeleteTrackButton from './DeleteTrackButton'
 const TrackList = ({ tracks, loading }) => {
 
   return (
-    <div>
+    <div className='tracks-list'>
+      <h1 className="track-list-heading">Track List</h1>
       {
         loading ?
           <BeatLoader color="#f7a010" />
@@ -19,11 +20,15 @@ const TrackList = ({ tracks, loading }) => {
             tracks.map((track) => {
               return (
                 <>
-                  <p key={track._id}>{track.title} by {track.artist}</p>
-                  <div>
-                    <PlayTrackButton />
-                    <EditTrackButton />
-                    <DeleteTrackButton />
+                  <div className="track-item" key={track._id}>
+                    <div>
+                      <p>{track.title} by {track.artist}</p>
+                    </div>
+                    <div className="track-buttons">
+                      <PlayTrackButton />
+                      <EditTrackButton />
+                      <DeleteTrackButton />
+                    </div>
                   </div>
                 </>
               )
