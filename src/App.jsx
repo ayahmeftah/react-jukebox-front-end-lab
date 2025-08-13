@@ -7,10 +7,12 @@ import TrackList from './components/TrackList/TrackList'
 
 const App = () => {
   const [tracks, setTracks] = useState([])
+  const [loading, setLoading] = useState(true)
 
   const getTracks = async () => {
     const allTracks = await apiCalls.getAllTracks()
     setTracks(allTracks)
+    setLoading(false)
   }
 
   useEffect(() => {
@@ -22,7 +24,7 @@ const App = () => {
   return (
     <>
       <h1>Hello</h1>
-      <TrackList tracks={tracks} />
+      <TrackList tracks={tracks} loading={loading}/>
     </>
   )
 }
