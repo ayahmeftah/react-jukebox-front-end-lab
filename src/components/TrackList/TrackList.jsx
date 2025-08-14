@@ -1,12 +1,26 @@
 import React from 'react'
 import apiCalls from '../../../lib/api'
 import { BeatLoader } from 'react-spinners'
+import { useState, useEffect } from 'react'
 
 import PlayTrackButton from './PlayTrackButton'
 import EditTrackButton from './EditTrackButton'
 import DeleteTrackButton from './DeleteTrackButton'
 
-const TrackList = ({ tracks, loading }) => {
+const TrackList = () => {
+
+  const [tracks, setTracks] = useState([])
+  const [loading, setLoading] = useState(true)
+
+  const getTracks = async () => {
+    const allTracks = await apiCalls.getAllTracks()
+    setTracks(allTracks)
+    setLoading(false)
+  }
+
+  useEffect(() => {
+    getTracks()
+  },[])
 
   return (
     <div className='tracks-list'>
@@ -25,9 +39,9 @@ const TrackList = ({ tracks, loading }) => {
                       <p>{track.title} by {track.artist}</p>
                     </div>
                     <div className="track-buttons">
-                      <PlayTrackButton />
-                      <EditTrackButton />
-                      <DeleteTrackButton />
+                      <PlayTrackButton trackId={track._id}/>
+                      <EditTrackButton trackId={track._id}/>
+                      <DeleteTrackButton trackId={track._id}/>
                     </div>
                   </div>
                 </>
