@@ -41,7 +41,7 @@ const App = () => {
         :
         null
       }
-      <TrackList tracks={tracks}/>
+      <TrackList tracks={tracks} getTracks={getTracks} />
       
     </>
   )
