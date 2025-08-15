@@ -7,7 +7,7 @@ import PlayTrackButton from './PlayTrackButton'
 import EditTrackButton from './EditTrackButton'
 import DeleteTrackButton from './DeleteTrackButton'
 
-const TrackList = ({tracks, loading, getTracks}) => {
+const TrackList = ({tracks, loading, getTracks, handleEditClick}) => {
 
   
   return (
@@ -28,7 +28,7 @@ const TrackList = ({tracks, loading, getTracks}) => {
                     </div>
                     <div className="track-buttons">
                       <PlayTrackButton trackId={track._id}/>
-                      <EditTrackButton trackId={track._id}/>
+                      <EditTrackButton trackId={track._id} track={track} handleEditClick={handleEditClick}/>
                       <DeleteTrackButton trackId={track._id} getTracks={getTracks}/>
                     </div>
                   </div>

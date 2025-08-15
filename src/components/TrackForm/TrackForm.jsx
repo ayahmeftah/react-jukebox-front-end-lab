@@ -1,14 +1,23 @@
 import React from 'react'
 import apiCalls from '../../../lib/api'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
-const TrackForm = ({ setFormIsShown, getTracks }) => {
+const TrackForm = ({ setFormIsShown, getTracks, editTrack }) => {
 
 
     const [formData, setFormData] = useState({
         title: '',
         artist: ''
     })
+
+    useEffect(() => {
+        if (editTrack) {
+            setFormData({
+                title: editTrack.title,
+                artist: editTrack.artist
+            })
+        }
+    }, [editTrack])
 
     const [isSubmitting, setIsSubmitting] = useState(false)
 
@@ -23,10 +32,15 @@ const TrackForm = ({ setFormIsShown, getTracks }) => {
         if (isSubmitting) return
         setIsSubmitting(true)
 
-        const response = await apiCalls.createTrack(formData)
-        console.log(response)
+        let response
 
-        if (response.status === 201) {
+        if (editTrack && editTrack._id) {
+            response = await apiCalls.updateTrack(editTrack._id, formData)
+        } else {
+            response = await apiCalls.createTrack(formData)
+        }
+
+        if (response.status === 201 || response.status === 200) {
             setFormData({
                 title: '',
                 artist: ''
@@ -48,7 +62,9 @@ const TrackForm = ({ setFormIsShown, getTracks }) => {
                 <label htmlFor="artist">Artist</label>
                 <input type="text" name="artist" id="artist" value={formData.artist} onChange={handleChange} />
                 <br />
-                <button type="submit">Add Track</button>
+                <button type="submit">
+                    {editTrack ? 'Update' : 'Add'}
+                </button>
             </form>
         </div>
     )

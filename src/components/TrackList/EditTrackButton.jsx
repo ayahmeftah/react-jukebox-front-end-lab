@@ -1,9 +1,9 @@
 import React from 'react'
 
-const EditTrackButton = () => {
+const EditTrackButton = ({handleEditClick, track}) => {
   return (
     <div>
-      <button>Edit</button>
+      <button onClick={() => handleEditClick(track)}>Edit</button>
     </div>
   )
 }

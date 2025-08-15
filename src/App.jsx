@@ -12,6 +12,8 @@ const App = () => {
   const [tracks, setTracks] = useState([])
   const [loading, setLoading] = useState(true)
 
+  const [editTrack, setEditTrack] = useState({})
+
   const getTracks = async () => {
     const allTracks = await apiCalls.getAllTracks()
     setTracks(allTracks)
@@ -23,7 +25,13 @@ const App = () => {
   },[])
 
 
-  const handleShowFormClick = (event) => {
+  const handleAddClick = (event) => {
+    setFormIsShown(true)
+    setEditTrack({})
+  }
+
+  const handleEditClick = (track) => {
+    setEditTrack(track)
     setFormIsShown(true)
   }
 
@@ -31,17 +39,17 @@ const App = () => {
     <>
       <button
         style={{ backgroundColor: '#f76110ff' }}
-        onClick={handleShowFormClick}>
+        onClick={handleAddClick}>
         Add New Track
       </button>
       {
         formIsShown
         ?
-        <TrackForm setFormIsShown={setFormIsShown} getTracks={getTracks} loading={loading}/>
+        <TrackForm setFormIsShown={setFormIsShown} getTracks={getTracks} loading={loading} editTrack={editTrack}/>
         :
         null
       }
-      <TrackList tracks={tracks} getTracks={getTracks} />
+      <TrackList tracks={tracks} getTracks={getTracks} handleEditClick={handleEditClick}/>
       
     </>
   )
