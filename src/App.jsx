@@ -5,6 +5,7 @@ import apiCalls from "../lib/api"
 
 import TrackList from './components/TrackList/TrackList'
 import TrackForm from './components/TrackForm/TrackForm'
+import NowPlaying from './components/NowPlaying/NowPlaying'
 
 const App = () => {
 
@@ -12,7 +13,9 @@ const App = () => {
   const [tracks, setTracks] = useState([])
   const [loading, setLoading] = useState(true)
 
-  const [editTrack, setEditTrack] = useState({})
+  const [editTrack, setEditTrack] = useState(null)
+
+  const [nowPlaying, setNowPlaying] = useState(null)
 
   const getTracks = async () => {
     const allTracks = await apiCalls.getAllTracks()
@@ -27,7 +30,7 @@ const App = () => {
 
   const handleAddClick = (event) => {
     setFormIsShown(true)
-    setEditTrack({})
+    setEditTrack(null)
   }
 
   const handleEditClick = (track) => {
@@ -49,8 +52,14 @@ const App = () => {
         :
         null
       }
-      <TrackList tracks={tracks} getTracks={getTracks} handleEditClick={handleEditClick}/>
-      
+      <TrackList tracks={tracks} getTracks={getTracks} handleEditClick={handleEditClick} setNowPlaying={setNowPlaying} />
+      {
+        nowPlaying ?
+
+        <NowPlaying track={nowPlaying} /> 
+        :
+        null
+      }
     </>
   )
 }

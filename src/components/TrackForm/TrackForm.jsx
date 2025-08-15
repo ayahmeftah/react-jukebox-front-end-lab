@@ -13,8 +13,8 @@ const TrackForm = ({ setFormIsShown, getTracks, editTrack }) => {
     useEffect(() => {
         if (editTrack) {
             setFormData({
-                title: editTrack.title,
-                artist: editTrack.artist
+                title: editTrack.title || '',
+                artist: editTrack.artist || ''
             })
         }
     }, [editTrack])
@@ -63,7 +63,7 @@ const TrackForm = ({ setFormIsShown, getTracks, editTrack }) => {
                 <input type="text" name="artist" id="artist" value={formData.artist} onChange={handleChange} />
                 <br />
                 <button type="submit">
-                    {editTrack ? 'Update' : 'Add'}
+                    {editTrack && editTrack._id ? 'Update' : 'Add'}
                 </button>
             </form>
         </div>

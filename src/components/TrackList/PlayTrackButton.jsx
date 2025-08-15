@@ -1,16 +1,17 @@
 import React from 'react'
+import apiCalls from '../../../lib/api'
 
-const PlayTrackButton = () => {
+const PlayTrackButton = ({ trackId, setNowPlaying }) => {
+  const handlePlayClick = async () => {
+    const track = await apiCalls.getOneTrack(trackId)
+    setNowPlaying(track)
+  }
 
-    const handlePlayTrack = () => {
-
-    }
-
-    return (
-        <div>
-            <button onClick={handlePlayTrack}>Play</button>
-        </div>
-    )
+  return (
+    <div>
+      <button onClick={handlePlayClick}>Play</button>
+    </div>
+  )
 }
 
 export default PlayTrackButton

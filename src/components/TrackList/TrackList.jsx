@@ -7,11 +7,11 @@ import PlayTrackButton from './PlayTrackButton'
 import EditTrackButton from './EditTrackButton'
 import DeleteTrackButton from './DeleteTrackButton'
 
-const TrackList = ({tracks, loading, getTracks, handleEditClick}) => {
+const TrackList = ({tracks, loading, getTracks, handleEditClick, setNowPlaying}) => {
 
   
   return (
-    <div className='tracks-list'>
+    <div className='track-item'>
       <h1 className="track-list-heading">Track List</h1>
       {
         loading ?
@@ -21,18 +21,16 @@ const TrackList = ({tracks, loading, getTracks, handleEditClick}) => {
             ?
             tracks.map((track) => {
               return (
-                <>
                   <div className="track-item" key={track._id}>
                     <div>
                       <p>{track.title} by {track.artist}</p>
                     </div>
                     <div className="track-buttons">
-                      <PlayTrackButton trackId={track._id}/>
+                      <PlayTrackButton trackId={track._id} setNowPlaying={setNowPlaying} />
                       <EditTrackButton trackId={track._id} track={track} handleEditClick={handleEditClick}/>
                       <DeleteTrackButton trackId={track._id} getTracks={getTracks}/>
                     </div>
                   </div>
-                </>
               )
             })
             :
