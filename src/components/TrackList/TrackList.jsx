@@ -7,21 +7,9 @@ import PlayTrackButton from './PlayTrackButton'
 import EditTrackButton from './EditTrackButton'
 import DeleteTrackButton from './DeleteTrackButton'
 
-const TrackList = () => {
+const TrackList = ({tracks, loading}) => {
 
-  const [tracks, setTracks] = useState([])
-  const [loading, setLoading] = useState(true)
-
-  const getTracks = async () => {
-    const allTracks = await apiCalls.getAllTracks()
-    setTracks(allTracks)
-    setLoading(false)
-  }
-
-  useEffect(() => {
-    getTracks()
-  },[])
-
+  
   return (
     <div className='tracks-list'>
       <h1 className="track-list-heading">Track List</h1>
